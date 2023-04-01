@@ -1,0 +1,27 @@
+openWhatsapp(String phoneNumber) async {
+    var whatsapp = phoneNumber;
+    var whatsappurlAndroid =
+        Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
+    var whatsappurlIos =
+        Uri.parse("https://wa.me/$whatsapp?text=${Uri.parse("hello")}");
+
+    if (Platform.isIOS) {
+      if (await canLaunchUrl(whatsappurlIos)) {
+        await launchUrl(whatsappurlIos);
+      } else {
+        MyMessageHandler.showSnackBar(_scafoldKey, "Cannot Contact Suppliers");
+      }
+    } else {
+      if (await canLaunchUrl(whatsappurlAndroid)) {
+        await launchUrl(whatsappurlAndroid);
+        print(phoneNumber);
+      } else {
+        print("negative");
+        MyMessageHandler.showSnackBar(_scafoldKey, "Cannot Contact Suppliers");
+      }
+    }
+  }
+  
+  /////////// NOTE ///////////
+  here is my function that need this package
+  /////////// END NOTE ///////////
